@@ -11,40 +11,37 @@ const RowMapper = props => {
     input: getInputProps,
     select: getSelectProps
   };
-  console.log("props", props);
   return (
-    <div classNmae={props.className}>
-      <>
-        <Row>
-          <Column>Task</Column>
-          <Column>Priority</Column>
-        </Row>
-        {useRows.rows.map((row, rowIndex) => {
-          return (
-            <Row>
-              {renderColumns(
-                props.columns,
-                row,
-                rowIndex,
-                (ColumnComponent, columnProps) => {
-                  return (
-                    <Column>
-                      <ColumnComponent {...columnProps} />
-                    </Column>
-                  );
-                }
-              )}
+    <div className={props.className}>
+      <Row>
+        <Column>Task</Column>
+        <Column>Priority</Column>
+      </Row>
+      {useRows.rows.map((row, rowIndex) => {
+        return (
+          <Row>
+            {renderColumns(
+              props.columns,
+              row,
+              rowIndex,
+              (ColumnComponent, columnProps) => {
+                return (
+                  <Column>
+                    <ColumnComponent {...columnProps} />
+                  </Column>
+                );
+              }
+            )}
 
-              <RemoveButton
-                onClick={() => {
-                  useRows.removeRow(rowIndex);
-                }}
-                isLastRow={isLastRow(useRows.rows, rowIndex)}
-              />
-            </Row>
-          );
-        })}
-      </>
+            <RemoveButton
+              onClick={() => {
+                useRows.removeRow(rowIndex);
+              }}
+              isLastRow={isLastRow(useRows.rows, rowIndex)}
+            />
+          </Row>
+        );
+      })}
     </div>
   );
 
@@ -63,8 +60,6 @@ const RowMapper = props => {
   }
 
   function getSelectProps(row, column, rowIndex) {
-    console.log({ row, column, rowIndex });
-
     const selected = column.options.find(
       option => option.value === row[column.id]
     );
